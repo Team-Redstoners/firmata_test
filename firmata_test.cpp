@@ -348,7 +348,7 @@ void MyFrame::OnSliderDrag(wxScrollEvent &event)
 void MyFrame::OnPort(wxCommandEvent &event)
 {
 	int id = event.GetId();
-	wxString name = port_menu->FindItem(id)->GetLabel();
+	wxString name = port_menu->FindItem(id)->GetItemLabelText();
 
 	port.Close();
 	init_data();
@@ -632,7 +632,6 @@ MyMenu::MyMenu(const wxString& title, long style) : wxMenu(title, style)
 void MyMenu::OnShowPortList(wxMenuEvent &event)
 {
 	wxMenu *menu;
-	wxMenuItem *item;
 	int num, any=0;
 
 	menu = event.GetMenu();
@@ -649,7 +648,7 @@ void MyMenu::OnShowPortList(wxMenuEvent &event)
 	num = list.GetCount();
 	for (int i=0; i < num; i++) {
 		//printf("%d: port %s\n", i, (const char *)list[i]);
-		item = menu->AppendRadioItem(9001 + i, list[i]);
+		menu->AppendRadioItem(9001 + i, list[i]);
 		if (port.Is_open() && port.get_name().IsSameAs(list[i])) {
 			menu->Check(9001 + i, true);
 			any = 1;
